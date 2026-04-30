@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>タスク一覧</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        .done { text-decoration: line-through; color: gray; }
+        .task { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<h1>タスク一覧</h1>
+
+<!-- ログアウト -->
+<form action="/logout" method="post">
+    <button type="submit">ログアウト</button>
+</form>
+
+<hr>
+
+<!-- タスク追加 -->
+<h2>タスク追加</h2>
+<form action="/tasks/add" method="post">
+    <input type="text" name="title" placeholder="タスク内容" required>
+    <button type="submit">追加</button>
+</form>
+
+<hr>
+
+<!-- タスク一覧表示 -->
+<h2>タスク一覧</h2>
+
+<div th:if="${tasks.isEmpty()}">
+    <p>タスクがありません</p>
+</div>
+
+<div th:each="task : ${tasks}" class="task">
+    
+    <!-- タスク名 -->
+    <span th:text="${task.title}"
+          th:classappend="${task.done} ? 'done' : ''">
+    </span>
+
+    <!-- 完了切り替え -->
+    <form th:action="@{/tasks/toggle}" method="post" style="display:inline;">
+        <input type="hidden" name="id" th:value="${task.id}">
+        <button type="submit">
+            <span th:text="${task.done} ? '未完了に戻す' : '完了'"></span>
+        </button>
+    </form>
+
+    <!-- 削除 -->
+    <form th:action="@{/tasks/delete}" method="post" style="display:inline;">
+        <input type="hidden" name="id" th:value="${task.id}">
+        <button type="submit">削除</button>
+    </form>
+
+</div>
+
+</body>
+</html>

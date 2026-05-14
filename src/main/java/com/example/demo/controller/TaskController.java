@@ -17,7 +17,7 @@ import com.example.demo.entity.User;
 import com.example.demo.service.TaskService;
 
 @Controller
-@RequestMapping("/task")
+@RequestMapping("/tasks")
 public class TaskController {
 
 	@Autowired

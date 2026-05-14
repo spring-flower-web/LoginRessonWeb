@@ -36,7 +36,7 @@ public class SecurityConfig {
 			.authorizeHttpRequests(auth -> auth
 				//login と /register というURLを指定
 				//誰でもアクセスOK
-				.requestMatchers("/login","register").permitAll()
+				.requestMatchers("/login","/register").permitAll()
 				//上で指定していない それ以外のすべてのURL
 				//ログイン（認証）済みでないとアクセス不可
 				.anyRequest().authenticated()
